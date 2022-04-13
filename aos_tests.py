@@ -5,6 +5,7 @@ import aos_locators as locators
 
 class AosPositiveTestCases(unittest.TestCase):
     @staticmethod # signal to Unittest framework that this is a function inside the class (vs. @classmethod)
+    
     def test_aos():
          methods.set_up()       #  open thee browser
 #        methods.create_user()      #  create NEW user
