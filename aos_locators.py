@@ -21,4 +21,4 @@ postal_code = fake.postalcode_in_province()
 state_province_region = fake.province_abbr()
 address = fake.address().replace('\n','')
 address1 = f'{fake.street_address()}'
-address2 = f'{fake.street_address()},{city},{fake.province_abbr},{fake.postalcode_in_province},{country}'
+#address2 = f'{fake.street_address()},{city},{fake.province_abbr},{fake.postalcode_in_province},{country}'
