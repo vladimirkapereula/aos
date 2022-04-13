@@ -216,11 +216,11 @@ def tearDown():
        sleep (5)
        driver.quit()
 ########################################################################################################################
-set_up()   #  open the browser
+#set_up()   #  open the browser
 #create_user()   #creating NEW user
 # #validate_account()  #validating NEW account
 #log_out()   # log out from the browser
 # log_in(locators.aos_username, locators.aos_password)     # log in the existing account
 # log_out()   #   log out from the newly created account
-delete_user()   #delete current user
-tearDown()
+#delete_user()   #delete current user
+#tearDown()
