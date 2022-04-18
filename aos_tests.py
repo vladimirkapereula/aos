@@ -6,13 +6,9 @@ import aos_locators as locators
 class AosPositiveTestCases(unittest.TestCase):
     @staticmethod  # signal to Unittest framework that this is a function inside the class (vs. @classmethod)
     def test_aos():
-            methods.set_up()    # open thee browser
-    #       methods.validate_homepage_text_links()
-    #       methods.create_user()      # create NEW user
-            methods.log_in(locators.aos_username, locators.aos_password)   # log in the browser
-            methods.validate_account()     # check we are log_in with the correct credentials
-            methods.log_out()      #  log out from the account
-    #       methods.log_in(locators.aos_username, locators.aos_password)     # log in the browser
-    #       methods.log_out()   # log out from the browser
-            methods.delete_user()
-            methods.tearDown()  # close the web browser
+        methods.set_up()
+        methods.create_user()
+        methods.validate_account()
+        methods.log_out()
+        methods.log_in(locators.aos_username, locators.new_password)
+        methods.teardown()
