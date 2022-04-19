@@ -10,5 +10,14 @@ class AosPositiveTestCases(unittest.TestCase):
         methods.create_user()
         methods.validate_account()
         methods.log_out()
-        methods.log_in(locators.aos_username, locators.new_password)
+        methods.check_availability_logo()
+        methods.check_availability_text()
+        methods.check_availability_links()
+        methods.log_in(locators.aos_username, locators.aos_password)
+        methods.log_out()
+        methods.form_contact_us()
+        methods.check_social_network_facebook()
         methods.teardown()
+
+
+

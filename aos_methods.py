@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-#   from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select
 import aos_locators as locators
 
 #   Using Selenium WebDriver, open the web browser.
@@ -39,30 +39,32 @@ def set_up():
         print(f'Thank you for coming today at the website of  -- {driver.title}')
     else:
         print(f'We\'re not at the "Advantage Shopping" home page. Please try again!')
-        sleep(5)
+        sleep(2)
         teardown()
 
 
 # =====================================================================================================================
 #   Creating New Account - using Faker library fake data
 def create_user():
-    sleep(3)
+    sleep(2)
     print(f'--------------------------* Creating New User Account *------------------------------------')
     driver.find_element(By.ID, 'menuUserLink').click()
+    sleep(1)
     driver.find_element(By.LINK_TEXT, 'CREATE NEW ACCOUNT').click()
-    sleep(3)
+    sleep(1)
     #   if driver.current_url == locators.aos_register_url and driver.title == locators.aos_title:
     driver.find_element(By.NAME, 'usernameRegisterPage').send_keys(locators.new_username)
+    sleep(1)
     print(f'new user name: -- {locators.new_username}')
-    sleep(3)
     driver.find_element(By.NAME, 'emailRegisterPage').send_keys(locators.email)
+    sleep(1)
     print(f'new user email address: -- {locators.email}')
-    sleep(3)
     driver.find_element(By.NAME, 'passwordRegisterPage').send_keys(locators.new_password)
-    sleep(3)
+    sleep(1)
     driver.find_element(By.NAME, 'confirm_passwordRegisterPage').send_keys(locators.new_password)
+    sleep(1)
     print(f'new user password: -- {locators.new_password}')
-    sleep(3)
+
     # else:
     # print('something is wrong in this part of code')
     # driver.find_element(By.NAME, 'first_nameRegisterPage').send_keys(locators.first_name)
@@ -82,25 +84,24 @@ def create_user():
     # driver.find_element(By.NAME, 'addressRegisterPage').send_keys(locators.address)
     # sleep(3)
     driver.find_element(By.NAME, 'i_agree').click()
-    sleep(3)
+    sleep(1)
     driver.find_element(By.ID, 'register_btnundefined').click()
-    sleep(3)
+    sleep(1)
     print(f'Account for New User: **{locators.full_name}** is created.')
-    sleep(3)
 
 
 #   ==============================================================================================================
 # Validating New Account created:(user name displayed)
 def validate_account():
-    sleep(3)
+    sleep(2)
     print(f'--------------------------* Validating User Account *------------------------------------')
     if driver.current_url == locators.aos_url and driver.title == locators.aos_title:
+        sleep(1)
         if driver.find_element(By.XPATH, f'//a[contains(.,"{locators.new_username}")]'):
-            sleep(3)
+            sleep(1)
             print(f'*Username {locators.new_username} is displayed on the Menu on Top right corner of the screen*')
         else:
             print('user not found.')
-            sleep(3)
 
 
 #   ==============================================================================================================
@@ -111,8 +112,9 @@ def log_out():
     if driver.current_url == locators.aos_url:
         #   driver.find_element(By.LINK_TEXT, 'My account').click()
         driver.find_element(By.XPATH, '//*[@id="menuUserLink"]').click()
+        sleep(1)
         driver.find_element(By.XPATH, '//*[@id="loginMiniTitle"]/label[3]').click()
-        sleep(3)
+        sleep(1)
         print("Successfully logged out from the User account")
 
 
@@ -122,20 +124,19 @@ def log_in(username, password):
     sleep(2)
     print(f'--------------------------------* User Login Information *-------------------------------------------')
     if driver.current_url == locators.aos_url:
-        sleep(2)
+        sleep(1)
         driver.find_element(By.ID, 'menuUserLink').click()
-        sleep(2)
+        sleep(1)
         driver.find_element(By.NAME, 'username').send_keys(username)
-        sleep(2)
+        sleep(1)
         driver.find_element(By.NAME, 'password').send_keys(password)
-        sleep(2)
+        sleep(1)
         driver.find_element(By.NAME, 'remember_me').click()
-        sleep(2)
+        sleep(1)
         driver.find_element(By.ID, 'sign_in_btnundefined').click()
-        sleep(2)
+        sleep(1)
         print(f'Client is loggin to --{locators.aos_url} website.')
         print(f'Username: {locators.aos_username}\nPassword: {locators.aos_password}')
-        sleep(2)
 
 
 #  ==============================================================================================================
@@ -147,63 +148,64 @@ def check_social_network_facebook():
         print('We could find Facebook image  FOLLOW US displayed')
         sleep(1)
         facebook = driver.find_element(By.XPATH, '//img[@name="follow_facebook"]')
+        sleep(1)
         print(f' the Facebook img display is: {facebook.is_displayed()}')
         print(f' the Facebook img clickable condition is: {facebook.is_enabled()}')
         driver.find_element(By.XPATH, '//img[@name="follow_facebook"]').click()
+        sleep(1)
         driver.switch_to.window(driver.window_handles[1])
+        sleep(1)
         if driver.current_url == 'https://www.facebook.com/MicroFocus/':
-            print(f'Social media link Facebook is available and clickable')
             sleep(1)
+            print(f'Social media link Facebook is available and clickable')
         else:
             print('Facebook page not found')
             sleep(1)
             print('Facebook link has been closed')
             driver.switch_to.window(driver.window_handles[0])
+            sleep(1)
 #   -----------------------------------------------------------------------------------------------------------------
-# def check_social_Network_twitter():
-#     sleep(5)
-#     print(f'--------------------------------* Check Social Network - Twitter *-------------------------------------')
-#     #if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
-#     if driver.find_element(By.XPATH, '// *[ @ id = "follow"]').is_displayed():
-#        print('We could find image FOLLOW US on Twitter displayed')
-#        sleep(5)
-#        twitter = driver.find_element(By.XPATH, 'img[@bname="follow_twitter"]')
-#        print(f' the Twitter img display is: {twitter.is_displayed()}')
-#        print(f' the Twitter img display is: {twitter.is_enabled()}')
-#        driver.find_element(By.XPATH, '//img[@name="follow_twitter"]').click()
-#        driver.switch_to.window(driver.window_handles[1])
-#        if driver.current_url == 'https://www.twitter.com/MicroFocus/':
-#             assert'Twitter.com' in driver.current_url()
-#             print(f'Social media link Twitter is available and clickable')
-#             sleep(3)
-#         else:
-#             print('Twitter page not found')
-#             sleep(5)
-#             print('Twitter link has been closed')
-#             driver.switch_to.window(driver.window_handles[0])
+def check_social_network_twitter():
+    sleep(3)
+    print(f'--------------------------------* Check Social Network - Twitter *-------------------------------------')
+    if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
+        print('We could find Twitter image  FOLLOW US displayed')
+        sleep(1)
+        twitter = driver.find_element(By.XPATH, '//img[@name="follow_twitter"]')
+        print(f' the Twitter img display is: {twitter.is_displayed()}')
+        print(f' the Twitter img clickable condition is: {twitter.is_enabled()}')
+        driver.find_element(By.XPATH, '//img[@name="follow_twitter"]').click()
+        driver.switch_to.window(driver.window_handles[1])
+        if driver.current_url == 'https://www.twitter.com/MicroFocus/':
+            sleep(2)
+            print(f'Social media link Twitter is available and clickable')
+        else:
+            print('Twitter page not found')
+            sleep(1)
+            print('Twitter link has been closed')
+            driver.switch_to.window(driver.window_handles[0])
 #   -----------------------------------------------------------------------------------------------------------------
-# def check_social_Network_linkedIn():
-#     sleep(5)
-#     print(f'--------------------------------* Check Social Network - LinkedIn *-----------------------------------')
-#     if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
-#         sleep(5)
-#         print('Image  "FOLLOW US on LinkedIn" displayed')
-#         #linkedin = driver.find_element(By.XPATH, 'img[@bname="follow_linkedin"]')
-#         #print(f' the linkedin img display is: {linkedin.is_displayed()}')
-#         #print(f' the linkedin img display is: {linkedin.is_enabled()}')
-#         #driver.find_element(By.XPATH, '//img[@name="follow_linkedin"]').click()
-#         #driver.switch_to.window(driver.window_handles[1])
-#         #if driver.current_url == 'https://www.linkedin.com//company/Micro/Focus/':
-#         #if 'linkedin.com' in  'https://www.linkedin.com//company/Micro/Focus/':
-#             assert 'Linkedin.com' in driver.current_url()
-#                  if driver.current_url == 'https://www.linkedin.com/':
-#             print(f'Social media link linkedIn is confirmed')
-#             print(f'Sorry, "Follow Us" link to our linkedin profile is not working at the moment.Please try again.')
-#             sleep(3)
-#         else:
-#             print('linkedIn page not found')
-#             print('linkedIn link has been closed')
-#             driver.switch_to.window(driver.window_handles[0])
+def check_social_network_linkedIn():
+    sleep(3)
+    print(f'--------------------------------* Check Social Network - LinkedIn *-----------------------------------')
+    if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
+        sleep(1)
+        print('Image  "FOLLOW US on LinkedIn" displayed')
+        #linkedin = driver.find_element(By.XPATH, 'img[@bname="follow_linkedin"]')
+        #print(f' the linkedin img display is: {linkedin.is_displayed()}')
+        #print(f' the linkedin img display is: {linkedin.is_enabled()}')
+        #driver.find_element(By.XPATH, '//img[@name="follow_linkedin"]').click()
+        #driver.switch_to.window(driver.window_handles[1])
+        #if driver.current_url == 'https://www.linkedin.com//company/Micro/Focus/':
+        #if 'linkedin.com' in  'https://www.linkedin.com//company/Micro/Focus/':
+#       assert 'Linkedin.com' in driver.current_url()
+#       if driver.current_url == 'https://www.linkedin.com/':
+        print(f'Social media link linkedIn is confirmed')
+        print(f'Sorry, "Follow Us" link to our linkedin profile is not working at the moment.Please try again.')
+    else:
+        print('linkedIn page not found')
+        print('linkedIn link has been closed')
+        driver.switch_to.window(driver.window_handles[0])
 
 
 #  ==============================================================================================================
@@ -212,47 +214,48 @@ def check_out_shopping_cart():
     sleep(3)
     print(f'------------------------------* Check Out Shoppping Cart *----------------------------------------------')
     if driver.current_url == 'https://www.advantageonlineshopping.com/#/':
-        driver.get('https://www.advantageonlineshopping.com/#/product/10')
-        sleep(3)
+        driver.get('https://advantageonlineshopping.com/#/product/10')
+        sleep(2)
         driver.find_element(By.NAME, 'save_to_cart').click()
-        sleep(3)
+        sleep(2)
         driver.find_element(By.ID, 'shoppingCartLink').click()
-        sleep(3)
+        sleep(2)
         driver.find_element(By.ID, 'checkOutButton').click()
-        sleep(3)
-        print(f' we can see ORDER PAYMENT and SHIPPING DETAILS page')
+        sleep(2)
+        print(f' We can see ORDER PAYMENT and SHIPPING DETAILS page')
         print(f' ORDER SUMMARY information is displayed')
         print(f' ---Customer Name {locators.full_name} is displayed on shipping details page ---')
-        sleep(3)
+        sleep(2)
         driver.find_element(By.ID, 'next_btn').click()
-        if driver.current_url == 'https://www.advantageonlineshopping.com/#/orderPayment':
+        if driver.current_url == 'https://advantageonlineshopping.com/#/orderPayment':
             print(f' payment info was entered for SafePay:username and password')
             driver.find_element(By.NAME, 'safepay').click()
-            sleep(3)
-            # driver.find_element(By.NAME, 'safepay_username').send_keys(locators.aos_username)
-            # sleep(5)
-            # driver.find_element(By.NAME, 'safepay_password').send_keys(locators.aos_password)
-            # sleep(3)
+            sleep(2)
+            driver.find_element(By.NAME, 'safepay_username').send_keys(locators.new_username)
+            sleep(2)
+            driver.find_element(By.NAME, 'safepay_password').send_keys(locators.new_password)
+            sleep(2)
             driver.find_element(By.NAME, 'save_safepay')
-            sleep(3)
+            sleep(2)
             driver.find_element(By.ID, 'pay_now_btn_SAFEPAY').click()
-            sleep(3)
+            sleep(2)
         else:
-            print(f'current url 2', driver.current_url)
-    else:
-        print(f'current url 1', driver.current_url)
+            print(f'You are not at "Advantage Online Shopping" site, you are at:', driver.current_url)
 
+#
 
 #  ===================================================================================================================
 def validate_order_created():
     sleep(3)
     print(f'------------------------------* Validate Order Created *----------------------------------------------')
     if driver.current_url == 'https://www.advantageonlineshopping.com/#/orderPayment':
-        sleep(3)
+        sleep(2)
         print(f' Order Payment was made and thank you message was displayed:"Thank you for buying with Advantage')
-        sleep(3)
+        sleep(2)
         locators.tracking_number = driver.find_element(By.ID, 'trackingNumberLabel').text
+        sleep(2)
         print(f' Tracking number was captured for this order:', locators.tracking_number)
+        sleep(2)
         locators.order_number = driver.find_element(By.ID, 'orderNumberLabel').text
         print(f' Order number was captured for this order: {locators.order_number}')
         print(f' Shipping to: {locators.full_name}, Address:{locators.address}')
@@ -265,20 +268,18 @@ def validate_order_created():
 #  ===================================================================================================================
 #   checking if order is deleted
 def delete_order():
-    sleep(3)
+    sleep(2)
     print(f'--------------------------------* Delete Order - Information *----------------------------------------')
-#   if driver.current_url == 'https://advantageonlineshopping.com/#/MyOrders':
     if driver.current_url == 'https://www.advantageonlineshopping.com/#/MyOrders':
-        sleep(3)
+        sleep(2)
         driver.find_element(By.LINK_TEXT, 'REMOVE').click()
-        sleep(3)
+        sleep(2)
         driver.find_element(By.XPATH, f'//label[contains(text(), "CANCEL")').is_displayed()
-        sleep(3)
+        sleep(2)
         print(f'Order is deleted.')
         driver.find_element(By.XPATH, f'//label[contains(text(), "No orders")').is_displayed()
-        sleep(3)
+        sleep(2)
         print(f'Order is deleted by validating "No orders" text displayed.')
-        sleep(3)
     else:
         print(f'Order is not deleted.')
 
@@ -289,7 +290,9 @@ def check_availability_logo():
     sleep(3)
     print(f'---------------------------* Items on Home page: LOGO available/clickabe   *--------------------')
     if driver.current_url == locators.aos_url:
+        sleep(1)
         logo = driver.find_element(By.ID, 'Layer_1')
+        sleep(1)
         # logo = driver.find_element(By.CLASS_NAME, 'roboto-medium ng-binding')
         # logo = driver.find_element(By.CLASS_NAME, 'logoDemo roboto-light ng-binding')
         print(f'The display feature of the logo is: {logo.is_displayed()}')
@@ -326,7 +329,7 @@ def check_availability_text():
         driver.back()
         sleep(2)
         print(f'Item TABLETS is displayed and clickable.You can proceed with your shopping-HOME PAGE')
-#   ----------------------------------------------------------------------------------------------------
+#  ----------------------------------------------------------------------------------------------------
         assert driver.find_element(By.XPATH, '//span[contains(., "HEADPHONES")]').is_displayed()
         sleep(2)
         driver.find_element(By.ID, 'headphonesTxt').click()
@@ -336,6 +339,7 @@ def check_availability_text():
         driver.find_element(By.ID, 'headphonesLink').click()
         sleep(2)
         driver.back()
+        sleep(2)
         print(f'Item HEADPHONES is displayed and clickable.You can proceed with your shopping!')
 #       ----------------------------------------------------------------------------------------------------
         assert driver.find_element(By.XPATH, '//span[contains(., "LAPTOPS")]').is_displayed()
@@ -346,6 +350,7 @@ def check_availability_text():
         driver.find_element(By.ID, 'laptopsLink').click()
         sleep(2)
         driver.back()
+        sleep(2)
         print(f'Ittm LAPTOPS is displayed and clickable.You can proceed with your shopping!')
 #       ----------------------------------------------------------------------------------------------------
         assert driver.find_element(By.XPATH, '//span[contains(., "MICE")]').is_displayed()
@@ -353,77 +358,82 @@ def check_availability_text():
         driver.find_element(By.ID, 'miceTxt').click()
         sleep(2)
         driver.back()
+        sleep(2)
         driver.find_element(By.ID, 'miceLink').click()
         sleep(2)
         driver.back()
+        sleep(2)
         print(f'Item MICE is displayed and clickable.You can proceed with your shopping!')
 
 
 #  ===================================================================================================================
 #   checking for:our [products,special offer.popular items, contact us]
 def check_availability_links():
-    sleep(5)
+    sleep(3)
     print(f'*Home Page Menu:Items on Home page clickabe (links)[our products,special offer,popular items,contact us]*')
     if driver.current_url == locators.aos_url:
-        assert driver.find_element(By.CLASS_NAME, 'nav-li-Links').is_displayed()
+#        driver.find_element(By.CLASS_NAME, 'nav-li-Links').is_displayed()
+        driver.find_element(By.XPATH, '//a[contains(., "OUR PRODUCTS")]').click()
         sleep(2)
-        driver.find_element(By.LINK_TEXT, 'our_products').click()
-        # driver.back()
         # sleep(2)
         # driver.find_element(By.NAME, 'mobileSearch').click()
-        sleep(2)
-        driver.back()
-        sleep(2)
-        print(f'Menu Item PRODUCTS is displayed and clickable.You can proceed with your shopping!')
-# ------------------------------------------------------------------------------------------------------------------
-#        assert driver.find_element(By.CLASS_NAME, 'menu navLinks roboto-regular ng-scope').is_displayed()
-        sleep(2)
-        driver.find_element(By.ID, 'special_offer_items').click()
-        sleep(2)
+        # sleep(2)
         # driver.back()
+        sleep(2)
+        print(f'Link to "OUR PRODUCTS" is displayed and clickable.on click opens page with "Our Products"!')
+#   -----------------------------------------------------------------------------------------------------------------
+#       assert driver.find_element(By.CLASS_NAME, 'menu navLinks roboto-regular ng-scope').()
+        driver.find_element(By.XPATH, '//a[contains(., "SPECIAL OFFER")]').click()
+        sleep(2)
         # sleep(2)
         # driver.find_element(By.NAME, 'mobileSearch').click()
-        sleep(2)
-        driver.back()
-        sleep(2)
-        print(f'Menu Item "SPECIAL OFFER" is displayed and clickable.On click opens page with "Special Offers!"')
-#    ------------------------------------------------------------------------------------------------------------------
-#   assert driver.find_element(By.CLASS, [ng-scope]').is_displayed()
-        sleep(2)
-        driver.find_element(By.ID, 'popular_items').click()
-        sleep(2)
-        # driver.back()
         # sleep(2)
-        # driver.find_element(By.NAME, 'mobileSearch').click()
-        sleep(2)
-        driver.back()
-        sleep(2)
-        print(f'Link "POPULAR ITEMS" is displayed and clickable.On click opens page with list of "Popular Items!"')
-#   ------------------------------------------------------------------------------------------------------------------
-#    assert driver.find_element(By.CLASS, [menu navLinks roboto-regular ng-scope]').is_displayed()
-        sleep(2)
-        driver.find_element(By.ID, 'contact_us').click()
-        sleep(2)
         # driver.back()
-        # sleep(2)
+        sleep(2)
+        print(f'Link to "SPECIAL OFFER" is displayed and clickable.On click opens page with "Special Offer!"')
+# #    ------------------------------------------------------------------------------------------------------------------
+# #   assert driver.find_element(By.CLASS, [ng-scope]').is_displayed()
+        sleep(2)
+        driver.find_element(By.XPATH, '//a[contains(., "POPULAR ITEMS")]').click()
+        sleep(2)
         # driver.find_element(By.NAME, 'mobileSearch').click()
+        # sleep(2)
+        # driver.back()
         sleep(2)
-        driver.back()
+        print(f'Link to "POPULAR ITEMS" is displayed and clickable.On click opens page with list of "Popular Items!"')
+# #   ------------------------------------------------------------------------------------------------------------------
+# #    assert driver.find_element(By.CLASS, [menu navLinks roboto-regular ng-scope]').is_displayed()
         sleep(2)
-        print(f'Item "CONTACT US" is displayed and clickable.On click oppening form "Contact Us".')
+        driver.find_element(By.XPATH, '//a[contains(., "CONTACT US")]').click()
+        sleep(2)
+        # driver.find_element(By.NAME, 'mobileSearch').click()
+        # sleep(2)
+        #driver.back()
+        sleep(2)
+        print(f'Link to "CONTACT US" form is displayed and clickable.On click opening form "Contact Us".')
 
 #  ===================================================================================================================
-#  checking for popular items, etc.
-#  def check_for_links():
-#      assert driver.find_element(By.XPATH, '//span[contains(., "SPEAKERS")]').is_displayed()
-#         products = driver.find_element(By.ID,'our_products').click()
-#         driver.back()
-#         speaker = driver.find_element(By.ClASS, 'menu navLinks roboto-regular ng-scope').click()
-#         driver.back()
-#         speaker = driver.find_element(By.ID, 'our_products'
-#         speaker = driver.find_element(By.ID, 'speakerTxt')
-#         print(f'The display feature of the speaker is: {(not (speaker))}')
-#         print(f'The enable feature of the speaker is: {(not (speaker))}')
+#  checking form contact us, fill out, send, etc.
+def form_contact_us():
+    sleep(1)
+    print(f'--------------------------* Contact Us form:filling out & sending *------------------------------------')
+    driver.find_element(By.XPATH, '//a[contains(., "CONTACT US")]').click()
+  #  driver.find_element(By.XPATH, '//*[@id = "supportCover"]/div/h1').click()
+    sleep(1)
+    driver.find_element(By.NAME, 'emailContactUs').send_keys(locators.email)
+    sleep(2)
+    driver.find_element(By.NAME, 'subjectTextareaContactUs').send_keys(locators.subject)
+    sleep(2)
+    driver.find_element(By.ID, 'registerSuccessCover').is_displayed()
+    driver.find_element(By.ID, 'send_btnundefined').click()
+    sleep(2)
+    print(f'Form "CONTACT US" was submitted.')
+    sleep(2)
+    print(f'Message "Thank you for contacting Advantage support." is confirmed visually.')
+    sleep(2)
+    driver.find_element(By.XPATH, '//a[contains(., "CONTINUE SHOPPING")]').click()
+    print(f'Link to "CONTINUE SHOPPING" form is displayed and clickable.On click - main products page is oppened.')
+    sleep(2)
 
 
 #  ===================================================================================================================
@@ -450,14 +460,12 @@ def teardown():
     if driver is not None:
         print(f' ----------------------* Thank you for visiting advantage online shopping website  *----------------')
         print(f'Test Completed at: {datetime.datetime.now()}')
-        print(f'------------------------------------------------------------------------------------------------------')
+        print(f'----------------------------------------------------------------------------------------------------')
         sleep(3)
-        driver.close()
+#       driver.close()
         sleep(3)
         driver.quit()
         sleep(3)
-
-
 #  ===================================================================================================================
 #   ===----==*  List of Functions: *----------
 # set_up()
@@ -465,15 +473,16 @@ def teardown():
 # validate_account()
 # check_availability_logo()
 # check_availability_text()
-# #check_availability_links()
-# check_social_network_facebook()
-# #   check_social_Network_twitter()
-# #   check_social_Network_linkedIn()
-# #   check_out_shopping_cart()
-# #   validate_order_created()
+# check_availability_links()
+# # check_out_shopping_cart()
+# # validate_order_created()
 # log_out()
 # log_in(locators.aos_username, locators.aos_password)
-# #   delete_order()
+# #delete_order()
 # log_out()
-# #   delete_user()
+# #delete_user()
+# form_contact_us()
+# check_social_network_facebook()
+# #check_social_network_twitter()
+# #check_social_network_linkedIn()
 # teardown()
