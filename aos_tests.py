@@ -16,7 +16,7 @@ class AosPositiveTestCases(unittest.TestCase):
         methods.log_in(locators.aos_username, locators.aos_password)
         methods.log_out()
         methods.form_contact_us()
-        methods.check_social_network_facebook()
+        methods.check_social_network_facebook_twitter_linkedin()
         methods.teardown()
 
 

@@ -39,14 +39,14 @@ def set_up():
         print(f'Thank you for coming today at the website of  -- {driver.title}')
     else:
         print(f'We\'re not at the "Advantage Shopping" home page. Please try again!')
-        sleep(2)
+        sleep(1)
         teardown()
 
 
 # =====================================================================================================================
 #   Creating New Account - using Faker library fake data
 def create_user():
-    sleep(2)
+    sleep(1)
     print(f'--------------------------* Creating New User Account *------------------------------------')
     driver.find_element(By.ID, 'menuUserLink').click()
     sleep(1)
@@ -93,7 +93,7 @@ def create_user():
 #   ==============================================================================================================
 # Validating New Account created:(user name displayed)
 def validate_account():
-    sleep(2)
+    sleep(1)
     print(f'--------------------------* Validating User Account *------------------------------------')
     if driver.current_url == locators.aos_url and driver.title == locators.aos_title:
         sleep(1)
@@ -107,7 +107,7 @@ def validate_account():
 #   ==============================================================================================================
 #   Logout:
 def log_out():
-    sleep(3)
+    sleep(1)
     print(f'---------------------------------* Logout Information *-----------------------------------------------')
     if driver.current_url == locators.aos_url:
         #   driver.find_element(By.LINK_TEXT, 'My account').click()
@@ -121,7 +121,7 @@ def log_out():
 #  ==============================================================================================================
 #  Login:
 def log_in(username, password):
-    sleep(2)
+    sleep(1)
     print(f'--------------------------------* User Login Information *-------------------------------------------')
     if driver.current_url == locators.aos_url:
         sleep(1)
@@ -140,72 +140,58 @@ def log_in(username, password):
 
 
 #  ==============================================================================================================
-# Checking availavility/clicability of social media images(Fasebook,Twitter, Linkedin) at HOME PAGE (FOLLOW US section)
-def check_social_network_facebook():
-    sleep(1)
+#   Checking availavility/clicability of social media images(Fasebook,Twitter, Linkedin) at HOME PAGE (FOLLOW US section)
+def check_social_network_facebook_twitter_linkedin():
+    sleep(2)
     print(f'--------------------------------* Check Social Network - Facebook *---------------------------------------')
     if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
-        print('We could find Facebook image  FOLLOW US displayed')
+        print('We could find image  FOLLOW US displayed')
+        print('-------------------------------------------------------------------------------------------------------')
         sleep(1)
         facebook = driver.find_element(By.XPATH, '//img[@name="follow_facebook"]')
         sleep(1)
         print(f' the Facebook img display is: {facebook.is_displayed()}')
-        print(f' the Facebook img clickable condition is: {facebook.is_enabled()}')
+        print(f' the Facebook img is clickable: {facebook.is_enabled()}')
         driver.find_element(By.XPATH, '//img[@name="follow_facebook"]').click()
-        sleep(1)
-        driver.switch_to.window(driver.window_handles[1])
         sleep(1)
         if driver.current_url == 'https://www.facebook.com/MicroFocus/':
             sleep(1)
             print(f'Social media link Facebook is available and clickable')
+#           driver.back()
         else:
             print('Facebook page not found')
-            sleep(1)
-            print('Facebook link has been closed')
             driver.switch_to.window(driver.window_handles[0])
+  #          driver.back()
             sleep(1)
-#   -----------------------------------------------------------------------------------------------------------------
-def check_social_network_twitter():
-    sleep(3)
-    print(f'--------------------------------* Check Social Network - Twitter *-------------------------------------')
-    if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
-        print('We could find Twitter image  FOLLOW US displayed')
-        sleep(1)
+            print(
+                '-----------------------------------------------------------------------------------------------------')
+#    ------------------------------------------------------------------------------------------------------------------
         twitter = driver.find_element(By.XPATH, '//img[@name="follow_twitter"]')
+        sleep(2)
         print(f' the Twitter img display is: {twitter.is_displayed()}')
         print(f' the Twitter img clickable condition is: {twitter.is_enabled()}')
         driver.find_element(By.XPATH, '//img[@name="follow_twitter"]').click()
-        driver.switch_to.window(driver.window_handles[1])
-        if driver.current_url == 'https://www.twitter.com/MicroFocus/':
-            sleep(2)
+        sleep(1)
+        if driver.current_url == 'https://twitter.com/MicroFocus/':
+            sleep(1)
             print(f'Social media link Twitter is available and clickable')
         else:
             print('Twitter page not found')
-            sleep(1)
-            print('Twitter link has been closed')
-            driver.switch_to.window(driver.window_handles[0])
-#   -----------------------------------------------------------------------------------------------------------------
-def check_social_network_linkedIn():
-    sleep(3)
-    print(f'--------------------------------* Check Social Network - LinkedIn *-----------------------------------')
-    if driver.find_element(By.XPATH, '//h3[contains(., "FOLLOW US")]').is_displayed():
+            #   driver.back()
+            print('---------------------------------------------------------------------------------------')
+#   ----------------------------------------------------------------------------------------------------------------
+        linkedin = driver.find_element(By.XPATH, '//img[@name="follow_linkedin"]')
+        sleep(2)
+        # print(f' the linkedin img display is: {linkedin.is_displayed()}')
+        # print(f' the linkedin img display is: {linkedin.is_enabled()}')
+        driver.find_element(By.XPATH, '//img[@name="follow_linkedin"]').click()
         sleep(1)
-        print('Image  "FOLLOW US on LinkedIn" displayed')
-        #linkedin = driver.find_element(By.XPATH, 'img[@bname="follow_linkedin"]')
-        #print(f' the linkedin img display is: {linkedin.is_displayed()}')
-        #print(f' the linkedin img display is: {linkedin.is_enabled()}')
-        #driver.find_element(By.XPATH, '//img[@name="follow_linkedin"]').click()
-        #driver.switch_to.window(driver.window_handles[1])
-        #if driver.current_url == 'https://www.linkedin.com//company/Micro/Focus/':
-        #if 'linkedin.com' in  'https://www.linkedin.com//company/Micro/Focus/':
-#       assert 'Linkedin.com' in driver.current_url()
-#       if driver.current_url == 'https://www.linkedin.com/':
-        print(f'Social media link linkedIn is confirmed')
-        print(f'Sorry, "Follow Us" link to our linkedin profile is not working at the moment.Please try again.')
-    else:
-        print('linkedIn page not found')
-        print('linkedIn link has been closed')
-        driver.switch_to.window(driver.window_handles[0])
+        if driver.current_url == 'https://www.linkedin.com/company/micro-focus/':
+            sleep(1)
+            print(f'Social media link Linkedin is available and clickable')
+        else:
+            print('Expected Linkedin page not found')
+            print('Please check your code.')
 
 
 #  ==============================================================================================================
@@ -242,7 +228,6 @@ def check_out_shopping_cart():
         else:
             print(f'You are not at "Advantage Online Shopping" site, you are at:', driver.current_url)
 
-#
 
 #  ===================================================================================================================
 def validate_order_created():
@@ -287,7 +272,7 @@ def delete_order():
 #  ===================================================================================================================
 #   checking items on home page clickable yes/no
 def check_availability_logo():
-    sleep(3)
+    sleep(2)
     print(f'---------------------------* Items on Home page: LOGO available/clickabe   *--------------------')
     if driver.current_url == locators.aos_url:
         sleep(1)
@@ -303,7 +288,7 @@ def check_availability_logo():
 #  ===================================================================================================================
 #   checking items on home page (shown by "text" on home page)  available and clickable
 def check_availability_text():
-    sleep(3)
+    sleep(2)
     print(f'---------------------------* Items on Home page available/clickabe (text)  *--------------------')
     if driver.current_url == locators.aos_url:
         assert driver.find_element(By.XPATH, '//span[contains(., "SPEAKERS")]').is_displayed()
@@ -412,6 +397,7 @@ def check_availability_links():
         sleep(2)
         print(f'Link to "CONTACT US" form is displayed and clickable.On click opening form "Contact Us".')
 
+
 #  ===================================================================================================================
 #  checking form contact us, fill out, send, etc.
 def form_contact_us():
@@ -474,15 +460,14 @@ def teardown():
 # check_availability_logo()
 # check_availability_text()
 # check_availability_links()
+# log_out()
+# log_in(locators.new_username, locators.new_password)
 # # check_out_shopping_cart()
 # # validate_order_created()
-# log_out()
-# log_in(locators.aos_username, locators.aos_password)
+# #log_in(locators.new_username, locators.new_password)
 # #delete_order()
-# log_out()
+# #log_out()
 # #delete_user()
 # form_contact_us()
-# check_social_network_facebook()
-# #check_social_network_twitter()
-# #check_social_network_linkedIn()
+# check_social_network_facebook_twitter_linkedin()
 # teardown()
