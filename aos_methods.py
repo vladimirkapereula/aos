@@ -67,9 +67,9 @@ def create_user():
 
     # else:
     # print('something is wrong in this part of code')
-    # driver.find_element(By.NAME, 'first_nameRegisterPage').send_keys(locators.first_name)
+    driver.find_element(By.NAME, 'first_nameRegisterPage').send_keys(locators.first_name)
     # sleep(5)
-    # driver.find_element(By.NAME, 'last_nameRegisterPage').send_keys(locators.last_name)
+    driver.find_element(By.NAME, 'last_nameRegisterPage').send_keys(locators.last_name)
     # sleep(5)
     # driver.find_element(By.NAME, 'phone_numberRegisterPage').send_keys(locators.phone_number)
     # sleep(5)
@@ -445,7 +445,7 @@ def delete_user_account():
     sleep(1)
     driver.find_element(By.XPATH, '//div[@id="loginMiniTitle"]/label[contains(., "My account")]').click()
     sleep(1)
-    if driver.find_element(By.XPATH, f'//*[contains(., "{locators.new_username}")]').is_displayed():
+    if driver.find_element(By.XPATH, f'//*[contains(., "{locators.full_name}")]').is_displayed():
         sleep(1)
         print({locators.new_username}, 'is different from ', {locators.new_username})
         print(f'User Account Full Name is displayed: {locators.full_name}')
@@ -507,7 +507,6 @@ def teardown():
 # check_out_shopping_cart()
 # validate_order_created()
 # delete_order_and_validate()
-# log_out()
 # delete_user_account()
 # validate_account_deleted()
 # contact_us_form()
