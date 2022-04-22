@@ -9,15 +9,26 @@ class AosPositiveTestCases(unittest.TestCase):
         methods.set_up()
         methods.create_user()
         methods.validate_account()
+        methods.delete_user_account()
         methods.log_out()
         methods.check_availability_logo()
         methods.check_availability_text()
         methods.check_availability_links()
-        methods.log_in(locators.aos_username, locators.aos_password)
+        methods.log_in(locators.new_username, locators.new_password)
+        methods.check_out_shopping_cart()
+        methods.validate_order_created()
+        methods.delete_order_and_validate()
         methods.log_out()
-        methods.form_contact_us()
+        methods.validate_account_deleted()
+        methods.contact_us_form()
         methods.check_social_network_facebook_twitter_linkedin()
         methods.teardown()
+
+
+
+
+
+
 
 
 

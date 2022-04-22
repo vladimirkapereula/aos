@@ -24,3 +24,5 @@ address2 = f'{fake.street_address()},{city},{fake.province_abbr},{fake.postalcod
 order_number = "8878567635"
 tracking_number = "8878543683"
 subject = f'While shopping at {aos_url} today, {datetime.datetime.now()} had problem with the order confirmation.'
+no_orders = "- No orders -"
+continue_shopping = "CONTINUE SHOPPING"
