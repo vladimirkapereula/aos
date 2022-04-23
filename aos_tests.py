@@ -23,12 +23,3 @@ class AosPositiveTestCases(unittest.TestCase):
         methods.contact_us_form()
         methods.check_social_network_facebook_twitter_linkedin()
         methods.teardown()
-
-
-
-
-
-
-
-
-
